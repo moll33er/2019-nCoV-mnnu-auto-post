@@ -23,7 +23,7 @@ nohup python -u mnnu_post.py > out.log 2>&1 &
 ----------------------------------------------------------
 '''
 payload = {'ReSubmiteFlag':'f5f10e73-c238-4381-a9d7-6b92c7932162',
-           'StuLoginMode':'1','txtUid':'1605120225','txtPwd':'100910',
+           'StuLoginMode':'1','txtUid':'*********','txtPwd':'******',
            'codeInput':'jifd'}#验证码
 payloads = {}
 html_t=''
