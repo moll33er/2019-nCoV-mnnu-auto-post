@@ -23,7 +23,7 @@ nohup python -u mnnu_post.py > out.log 2>&1 &
 ----------------------------------------------------------
 '''
 payload = {'ReSubmiteFlag':'f5f10e73-c238-4381-a9d7-6b92c7932162',
-           'StuLoginMode':'1','txtUid':'*********','txtPwd':'******',
+           'StuLoginMode':'1','txtUid':'','txtPwd':'',
            'codeInput':'jifd'}#验证码
 payloads = {}
 html_t=''
@@ -336,9 +336,17 @@ def del_cookie():
         os.remove("cookie.db")
     else:
         print("The file does not exist")
-#解析需要的post数据
+
+		
+
+cookie=cookielib.MozillaCookieJar('cookie.db')
+handler=urllib2.HTTPCookieProcessor(cookie)
+#通过handler来构建opener
+opener = urllib2.build_opener(handler)
+#此处的open方法同urllib2的urlopen方法，也可以传入request
+
 def post_mnnu():
-    global html_t
+    global html_t,cookie,opener
     #设置保存cookie的文件，同级目录下的cookie.txt
     filename = 'cookie.db'
     #获取运行目录
@@ -431,20 +439,33 @@ def post_mnnu():
         else:
             print(findtext(r))
     elif(load_ok.find("layer.alert") != -1):
-        print('当前采集日期已登记！')
+        print('--当前采集日期已登记！')
         
     else:
         print(r)
         print("未知错误")
 
 def tst():
+    global payload,cookie,opener
     day = time.strftime('%Y-%m-%d',time.localtime(time.time()))
     times = time.strftime('%H:%M:%S',time.localtime(time.time()))
 
     print(day,times)
     #以日期命名文件
     f = open("./"+day+".txt",'a')
+	##########################
+    payload["txtUid"]="**********"
+    payload["txtPwd"]="******"
+    del_cookie()
+    get_cookies(cookie,opener)
     post_mnnu()
+    ##################################
+    del_cookie()
+    payload["txtUid"]="**********"
+    payload["txtPwd"]="******"
+    get_cookies(cookie,opener)
+    post_mnnu()
+	##################################
     #保存网站信息以便更新
     f.write(html_t)
     f.close()
@@ -462,7 +483,7 @@ if __name__ == "__main__":
     payload['codeInput'] = salt
     #挂后台 任务调度
     scheduler = BlockingScheduler()
-    scheduler.add_job(tst, 'cron', hour=6,minute=30)
+    scheduler.add_job(tst, 'cron', hour=7,minute=30)
     try:
         scheduler.start()
     except (KeyboardInterrupt, SystemExit):
