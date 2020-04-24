@@ -26,11 +26,15 @@
     get_cookies(cookie,opener)
     post_mnnu()
 linux 系统后台执行命令：
+
+
     if __name__ == "__main__":
     scheduler.add_job(tst, 'cron', hour=7,minute=30)
     #每天7点30分自动执行tst()任务
 
 
+
+linu挂机命令
 
 
     nohup python -u mnnu_post.py > out.log 2>&1 &
