@@ -6,10 +6,12 @@
 依赖：urllib bs4 http.cookiejar apscheduler
 
 修改脚本中的def tst():
+
 payload["txtUid"]="********"#学号
 payload["txtPwd"]="******"#密码
 
 登陆的完整流程，多人添加多个即可：
+
     del_cookie()
     payload["txtUid"]="**********"
     payload["txtPwd"]="******"
