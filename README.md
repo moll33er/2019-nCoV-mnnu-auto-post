@@ -7,8 +7,8 @@
 
 修改脚本中的def tst():
 
-payload["txtUid"]="********"#学号
-payload["txtPwd"]="******"#密码
+    payload["txtUid"]="********"#学号
+    payload["txtPwd"]="******"#密码
 
 登陆的完整流程，多人添加多个即可：
 
@@ -18,11 +18,11 @@ payload["txtPwd"]="******"#密码
     get_cookies(cookie,opener)
     post_mnnu()
 
-if __name__ == "__main__":
-scheduler.add_job(tst, 'cron', hour=7,minute=30)
-#每天7点30分自动执行tst()任务
+    if __name__ == "__main__":
+    scheduler.add_job(tst, 'cron', hour=7,minute=30)
+    #每天7点30分自动执行tst()任务
 
 linux 系统后台执行命令
-nohup python -u mnnu_post.py > out.log 2>&1 &
+    nohup python -u mnnu_post.py > out.log 2>&1 &
 python2版本未测试！
 
