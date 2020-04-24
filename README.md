@@ -22,7 +22,11 @@
     scheduler.add_job(tst, 'cron', hour=7,minute=30)
     #每天7点30分自动执行tst()任务
 
-linux 系统后台执行命令
+linux 系统后台执行命令：
+
+
     nohup python -u mnnu_post.py > out.log 2>&1 &
+    
+
 python2版本未测试！
 
